@@ -1,0 +1,29 @@
+{
+  "name": "merchant-dapps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tugas-akhir-13520036/merchant-dapps.git",
+  "author": "I Gede Arya Raditya Parameswara <71829426+gedearyarp@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-http-context": "^1.2.4",
+    "fabric-ca-client": "^2.2.20",
+    "fabric-network": "^2.2.20",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.1.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "globals": "^15.1.0"
+  }
+}
