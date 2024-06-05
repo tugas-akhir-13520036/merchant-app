@@ -2,6 +2,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const FabricCAClient = require('fabric-ca-client');
 const path = require('path');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const CertAuthUtil = require('../util/cert-authority');
 
@@ -46,12 +47,34 @@ class FabricClient {
         this.network = await this.gateway.getNetwork(this.channelName);
 
         logger.info('Connected to Fabric gateway');
+
+        logger.info('Creating Merchant');
+        this.merchantId = await this.createMerchant();
+        logger.info('Merchant created');
     }
 
     async getAttributes() {
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
         const result = await contract.submitTransaction('getAttributesList');
         return JSON.parse(result.toString());
+    }
+
+    async createMerchant() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+
+        const tx = contract.createTransaction('createMerchant');
+        tx.setEndorsingPeers(orgConfig.endorserPeers);
+
+        const uuid = uuidv4();
+        const date = new Date().toISOString();
+        const result = await tx.submit('merchant1', uuid, date);
+
+        return result.toString();
+    }
+
+    getChannelInfo() {
+        const channelInfo = this.network.getChannel();
+        return channelInfo;
     }
 }
 

@@ -1,6 +1,6 @@
 const FabricClient = require('./lib/fabric-client');
-const AdminController = require('./controller/admin');
-const AdminService = require('./service/admin');
+const AdminController = require('./controller/merchant');
+const AdminService = require('./service/merchant');
 
 class Init {
     constructor(app) {
@@ -22,11 +22,11 @@ class Init {
         this.app.get(
             '/healthcheck',
             (_, res) => {
-                res.status(200).send('Admin Dapps is healthy! ');
+                res.status(200).send('Merchant Dapps is healthy! ');
             },
         );
 
-        this.app.use('/admin', this.AdminController.getRouter());
+        this.app.use('/merchant', this.AdminController.getRouter());
     }
 }
 

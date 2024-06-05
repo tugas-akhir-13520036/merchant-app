@@ -16,7 +16,8 @@
     "express-http-context": "^1.2.4",
     "fabric-ca-client": "^2.2.20",
     "fabric-network": "^2.2.20",
-    "helmet": "^7.1.0"
+    "helmet": "^7.1.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",

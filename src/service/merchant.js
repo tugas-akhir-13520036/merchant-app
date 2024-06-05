@@ -1,6 +1,6 @@
 const logger = require('../util/logger');
 
-class AdminService {
+class MerchantService {
     constructor(fabricClient) {
         this.fabricClient = fabricClient;
     }
@@ -12,4 +12,4 @@ class AdminService {
     }
 }
 
-module.exports = AdminService;
+module.exports = MerchantService;

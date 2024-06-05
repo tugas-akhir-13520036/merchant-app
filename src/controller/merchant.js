@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const handleAsync = require('../util/handle-async');
 
-class AdminController {
+class MerchantController {
     constructor(adminService) {
         this.adminService = adminService;
         this.router = Router();
@@ -22,4 +22,4 @@ class AdminController {
     }
 }
 
-module.exports = AdminController;
+module.exports = MerchantController;
