@@ -60,16 +60,35 @@ class FabricClient {
     }
 
     async createMerchant() {
-        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-
-        const tx = contract.createTransaction('createMerchant');
-        tx.setEndorsingPeers(orgConfig.endorserPeers);
-
         const uuid = uuidv4();
         const date = new Date().toISOString();
-        const result = await tx.submit('merchant1', uuid, date);
+
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.submitTransaction('createMerchant', 'merchant1', uuid, date);
 
         return result.toString();
+    }
+
+    async getMerchant() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.submitTransaction('fetchMerchantData', this.merchantId);
+        return JSON.parse(result.toString());
+    }
+
+    async proposeAttribute(attrName, attrValue) {
+        const uuid = uuidv4();
+        const date = new Date().toISOString();
+
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.submitTransaction('proposeMerchantAttr', this.merchantId, attrName, attrValue, uuid, date);
+
+        return result.toString();
+    }
+
+    async getPendingAttributes() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.submitTransaction('fetchPendingMerchantAttr', this.merchantId);
+        return JSON.parse(result.toString());
     }
 
     getChannelInfo() {
