@@ -1,6 +1,6 @@
 const FabricClient = require('./lib/fabric-client');
-const AdminController = require('./controller/merchant');
-const AdminService = require('./service/merchant');
+const MerchantController = require('./controller/merchant');
+const MerchantService = require('./service/merchant');
 
 class Init {
     constructor(app) {
@@ -8,9 +8,9 @@ class Init {
 
         this.FabricClient = new FabricClient();
 
-        this.AdminService = new AdminService(this.FabricClient);
+        this.MerchantService = new MerchantService(this.FabricClient);
 
-        this.AdminController = new AdminController(this.AdminService);
+        this.MerchantController = new MerchantController(this.MerchantService);
     }
 
     async setupService() {
@@ -26,7 +26,7 @@ class Init {
             },
         );
 
-        this.app.use('/merchant', this.AdminController.getRouter());
+        this.app.use('/merchant', this.MerchantController.getRouter());
     }
 }
 
