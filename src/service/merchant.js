@@ -29,6 +29,12 @@ class MerchantService {
         const res = await this.fabricClient.getPendingAttributes();
         return res;
     }
+
+    async fetchHistory() {
+        logger.info('Fetching history');
+        const res = await this.fabricClient.fetchHistory();
+        return res;
+    }
 }
 
 module.exports = MerchantService;

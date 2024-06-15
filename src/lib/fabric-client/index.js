@@ -91,6 +91,12 @@ class FabricClient {
         return JSON.parse(result.toString());
     }
 
+    async fetchHistory() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.evaluateTransaction('queryHistory', this.merchantId);
+        return JSON.parse(result.toString());
+    }
+
     getChannelInfo() {
         const channelInfo = this.network.getChannel();
         return channelInfo;

@@ -13,6 +13,7 @@ class MerchantController {
         this.router.get('/attribute', handleAsync(this.getAttributeList.bind(this)));
         this.router.get('/pending-attribute', handleAsync(this.fetchPendingAttributes.bind(this)));
         this.router.post('/propose-attribute', handleAsync(this.proposeAttribute.bind(this)));
+        this.router.get('/history', handleAsync(this.fetchHistory.bind(this)));
     }
 
     getRouter() {
@@ -38,6 +39,11 @@ class MerchantController {
     async fetchPendingAttributes(req, res) {
         const pendingAttributes = await this.merchantService.fetchPendingAttributes();
         return res.status(200).json(pendingAttributes);
+    }
+
+    async fetchHistory(req, res) {
+        const history = await this.merchantService.fetchHistory();
+        return res.status(200).json(history);
     }
 }
 
