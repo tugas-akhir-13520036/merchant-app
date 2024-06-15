@@ -3,6 +3,7 @@ const logger = require('../util/logger');
 class MerchantService {
     constructor(fabricClient) {
         this.fabricClient = fabricClient;
+        this.paymentInfo = '[MOCK] Processing payment...';
     }
 
     async fetchAttributes() {
