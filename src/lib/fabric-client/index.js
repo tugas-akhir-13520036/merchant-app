@@ -49,7 +49,8 @@ class FabricClient {
         logger.info('Connected to Fabric gateway');
 
         logger.info('Creating Merchant');
-        this.merchantId = await this.createMerchant();
+        this.merchantId = orgConfig.userId || `merchant-${uuidv4()}`;
+        await this.createMerchant();
         logger.info('Merchant created');
     }
 
@@ -60,11 +61,10 @@ class FabricClient {
     }
 
     async createMerchant() {
-        const uuid = uuidv4();
         const date = new Date().toISOString();
 
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-        const result = await contract.submitTransaction('createMerchant', 'merchant1', uuid, date);
+        const result = await contract.submitTransaction('createMerchant', 'merchant1', this.merchantId, date);
 
         return result.toString();
     }
