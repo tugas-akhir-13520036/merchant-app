@@ -71,7 +71,7 @@ class FabricClient {
 
     async getMerchant() {
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-        const result = await contract.submitTransaction('fetchMerchantData', this.merchantId);
+        const result = await contract.submitTransaction('fetchOwnMerchantData');
         return JSON.parse(result.toString());
     }
 
@@ -87,13 +87,13 @@ class FabricClient {
 
     async getPendingAttributes() {
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-        const result = await contract.submitTransaction('fetchPendingMerchantAttr', this.merchantId);
+        const result = await contract.submitTransaction('fetchPendingOwnMerchantAttr', this.merchantId);
         return JSON.parse(result.toString());
     }
 
     async fetchHistory() {
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-        const result = await contract.evaluateTransaction('queryHistory', this.merchantId);
+        const result = await contract.evaluateTransaction('queryOwnHistory', this.merchantId);
         return JSON.parse(result.toString());
     }
 
@@ -107,6 +107,12 @@ class FabricClient {
         const contract = this.network.getContract(CHAINCODES.ACCESS_DECISION);
         const result = await contract.evaluateTransaction('getDecision', paymentChannelId);
         return JSON.parse(result.toString());
+    }
+
+    async getMspId() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.evaluateTransaction('getMspId');
+        return result.toString();
     }
 
     getChannelInfo() {
