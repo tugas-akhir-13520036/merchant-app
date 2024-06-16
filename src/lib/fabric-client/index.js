@@ -80,7 +80,7 @@ class FabricClient {
         const date = new Date().toISOString();
 
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
-        const result = await contract.submitTransaction('proposeMerchantAttr', this.merchantId, attrName, attrValue, uuid, date);
+        const result = await contract.submitTransaction('proposeMerchantAttr', attrName, attrValue, uuid, date);
 
         return result.toString();
     }
@@ -94,6 +94,18 @@ class FabricClient {
     async fetchHistory() {
         const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
         const result = await contract.evaluateTransaction('queryHistory', this.merchantId);
+        return JSON.parse(result.toString());
+    }
+
+    async fetchPaymentChannels() {
+        const contract = this.network.getContract(CHAINCODES.MERCHANT_ATTR);
+        const result = await contract.evaluateTransaction('fetchPaymentChannels');
+        return JSON.parse(result.toString());
+    }
+
+    async getDecision(paymentChannelId) {
+        const contract = this.network.getContract(CHAINCODES.ACCESS_DECISION);
+        const result = await contract.evaluateTransaction('getDecision', paymentChannelId);
         return JSON.parse(result.toString());
     }
 

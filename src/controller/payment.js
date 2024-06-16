@@ -9,7 +9,7 @@ class PaymentController {
     }
 
     initRouter() {
-        this.router.get('/eligible-payment-channels', handleAsync(this.fetchEligiblePaymentChannels.bind(this)));
+        this.router.get('/payment-channels', handleAsync(this.fetchPaymentChannels.bind(this)));
         this.router.post('/process-payment', handleAsync(this.processPayment.bind(this)));
     }
 
@@ -18,12 +18,14 @@ class PaymentController {
     }
 
     async processPayment(req, res) {
-        const payment = await this.paymentService.processPayment();
+        const { paymentChannelId } = req.body;
+
+        const payment = await this.paymentService.processPayment(paymentChannelId);
         return res.status(200).json(payment);
     }
 
-    async fetchEligiblePaymentChannels(req, res) {
-        const paymentChannels = await this.paymentService.fetchEligiblePaymentChannels();
+    async fetchPaymentChannels(req, res) {
+        const paymentChannels = await this.paymentService.fetchPaymentChannels();
         return res.status(200).json(paymentChannels);
     }
 }

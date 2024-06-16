@@ -5,15 +5,20 @@ class PaymentService {
         this.fabricClient = fabricClient;
     }
 
-    async processPayment() {
+    async processPayment(paymentChannelId) {
         logger.info('Processing payment');
-        const res = await this.fabricClient.processPayment();
-        return res;
+        const decision = await this.fabricClient.getDecision(paymentChannelId);
+
+        if (decision) {
+            return 'Payment successful';
+        }
+
+        return 'Payment failed, access denied';
     }
 
-    async fetchEligiblePaymentChannels() {
-        logger.info('Fetching eligible payment channels');
-        const res = await this.fabricClient.getEligiblePaymentChannels();
+    async fetchPaymentChannels() {
+        logger.info('Fetching payment channels');
+        const res = await this.fabricClient.fetchPaymentChannels();
         return res;
     }
 }
