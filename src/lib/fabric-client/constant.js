@@ -10,7 +10,6 @@ const orgConfig = {
     userId: CLIENT_ID,
     mspId: 'Org1MSP',
     peers: ['peer0.org1.example.com'],
-    endorserPeers: ['peer0.org2.example.com:9051', 'peer0.org3.example.com:11051'],
     admin: 'admin',
     caHostName: 'ca.org1.example.com',
     affiliation: 'org1.department1',
