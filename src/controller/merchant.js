@@ -32,8 +32,8 @@ class MerchantController {
 
     async proposeAttribute(req, res) {
         const { key, value } = req.body;
-        const result = await this.merchantService.proposeAttribute(key, value);
-        return res.status(200).json(result);
+        await this.merchantService.proposeAttribute(key, value);
+        return res.status(200).json({ message: 'Attribute proposed successfully' });
     }
 
     async fetchPendingAttributes(req, res) {
